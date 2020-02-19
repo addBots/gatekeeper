@@ -21,7 +21,7 @@ function loadConfig() {
       configItem = configItem.trim();
     }
     config[i] = configItem;
-    if (i === 'oauth_client_id' || i === 'oauth_client_secret') {
+    if (i === 'oauth_client_id' || i === 'oauth_client_secret' || i === 'oauth_redirect_uri') {
       log(i + ':', config[i], true);
     } else {
       log(i + ':', config[i]);
@@ -36,7 +36,8 @@ function authenticate(code, cb) {
   var data = qs.stringify({
     client_id: config.oauth_client_id,
     client_secret: config.oauth_client_secret,
-    code: code
+    code: code,
+    redirect_uri: config.oauth_redirect_uri,
   });
 
   var reqOptions = {
